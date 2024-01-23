@@ -109,7 +109,7 @@ q2 = HintSolution(
 
 def q3_check(y_test, y_pred):
     r2 = metrics.r2_score(y_test, y_pred)
-    assert r2 > 0.7631872388897969
+    assert r2 > 0.764
     assert r2 < 0.99 # nicht schummeln mit y_pred=y_test!
 
 q3 = HintSolution(
