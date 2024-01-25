@@ -163,3 +163,48 @@ q7 = HintSolution(
     'Ein bestimmtes Feature sorgt dafür, dass es sehr einfach für das Modell ist, die Qualitaet vorherzusagen. Gebe den Namen dieses Features an.',
     'problem="Qualitaet*Zustand"' 
 )
+
+def q8_check(width, height):
+    assert width == 240
+    assert height == 240
+
+q8 = HintSolution(
+    'Prüfe, welche Breit und Höhe die Bilder im Batch haben, damit du das MLP richtig konfigurieren kannst.',
+    q8_check,
+    'Hole dir einen Batch mit `X, y = dls.one_batch() und prüfe die Dimensionen mit `X.shape`.',
+    'X, y = dls.one_batch()\nq8_width = X.shape[2] # 240\nq8_height = X.shape[3] # 240'
+)
+
+def q9_check(output_size):
+    assert output_size == 15
+
+q9 = HintSolution(
+    'Prüfe, wie viele Output-Neuronen das MLP haben muss.',
+    q9_check,
+    'Zähle die Anzahl der Klassen im Ordner mercedes-12k/train oder nutze das Vokabular des Dataloaders.',
+    'q9_output_size = len(dls.vocab)'
+)
+
+def q10_check(model):
+    assert model.width == 240
+    assert model.height == 240
+    assert model.output_size == 15
+
+q10 = HintSolution(
+    'Erstelle ein Modell mit den richtigen Dimensionen für die WhichCar-Bilder. Nutze für die Hidden Layers jeweils 16 Neuronen.',
+    q10_check,
+    'Erstelle eine Instanz der Klasse SimpleMlp mit den passenden Größen (siehe auch q8 und q9).',
+    'q10_model = SimpleMlp(240, 240, 16, 16, 15)'
+)
+
+def q11_check(learn):
+    assert learn.n_epoch == 1
+    assert learn.metrics[0].value > 0.0
+    assert learn.metrics[0].value < 0.2
+
+q11 = HintSolution(
+    'Trainiere das Modell jetzt für eine Epoche mit der initiale Lernrate 0.01',
+    q11_check,
+    'Nutze die Methode `fit_one_cycle` und trainiere wirklich nur für eine Epoche.',
+    'q11_learn = Learner(\n    dls,\n    model=SimpleMlp(240, 240, 16, 16, 15),\n    loss_func=nn.CrossEntropyLoss(),\n    metrics=accuracy\n)\nq11_learn.fit_one_cycle(1, 0.01)'
+)
