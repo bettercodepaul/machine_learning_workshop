@@ -153,3 +153,13 @@ q6 = HintSolution(
     'Für Integer Encoding und Dummy Encoding kannst Du direkt die Methode train_fit_predict_score benutzen.\nFür Target Encoding musst du das Target Encoding an X_train und X_test joinen, das ursprüngliche Feature Nachbarschaft dann entfernen und Training und Vorhersage selber implementieren.',
     'from sklearn.ensemble import RandomForestRegressor\nfor model in [LinearRegression(), RandomForestRegressor()]:\n    model_name = type(model).__name__\n    _, r2_int = train_fit_predict_score(model, df_int_encoding)\n    _, r2_dummy = train_fit_predict_score(model, df_dummy_encoding)\n    X_train_target_encoded = X_train.join(target_encoding, on="Nachbarschaft").drop(columns="Nachbarschaft")\n    model.fit(X_train_target_encoded, y_train)\n    y_pred = model.predict(X_test.join(target_encoding, on="Nachbarschaft").drop(columns="Nachbarschaft"))\n    r2_target = metrics.r2_score(y_test, y_pred)\n    print(f"{model_name} mit Integer Encoding: {r2_int:.3f}")\n    print(f"{model_name} mit Dummy Encoding: {r2_dummy:.3f}")\n    print(f"{model_name} mit Target Encoding: {r2_target:.3f}")\nq6_best_encoding_linear_regression = "Dummy Encoding"\nq6_best_encoding_random_forest = "Target Encoding"'
 )
+
+def q7_check(problem):
+    assert problem == "Qualitaet*Zustand"
+
+q7 = HintSolution(
+    'Probiere verschiedene Klassifikationen aus jeweils mit der Zielspalte "Nachbarschaft", "Zimmer" und "Qualitaet" aus. Warum ist die Accuracy für "Qualitaet" so hoch?',
+    q7_check,
+    'Ein bestimmtes Feature sorgt dafür, dass es sehr einfach für das Modell ist, die Qualitaet vorherzusagen. Gebe den Namen dieses Features an.',
+    'problem="Qualitaet*Zustand"' 
+)
