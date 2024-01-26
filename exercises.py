@@ -165,14 +165,14 @@ q7 = HintSolution(
 )
 
 def q8_check(width, height):
-    assert width == 240
-    assert height == 240
+    assert width == 224
+    assert height == 224
 
 q8 = HintSolution(
     'Prüfe, welche Breit und Höhe die Bilder im Batch haben, damit du das MLP richtig konfigurieren kannst.',
     q8_check,
     'Hole dir einen Batch mit `X, y = dls.one_batch() und prüfe die Dimensionen mit `X.shape`.',
-    'X, y = dls.one_batch()\nq8_width = X.shape[2] # 240\nq8_height = X.shape[3] # 240'
+    'X, y = dls.one_batch()\nq8_width = X.shape[2] # 224\nq8_height = X.shape[3] # 224'
 )
 
 def q9_check(output_size):
@@ -186,15 +186,15 @@ q9 = HintSolution(
 )
 
 def q10_check(model):
-    assert model.width == 240
-    assert model.height == 240
+    assert model.width == 224
+    assert model.height == 224
     assert model.output_size == 15
 
 q10 = HintSolution(
     'Erstelle ein Modell mit den richtigen Dimensionen für die WhichCar-Bilder. Nutze für die Hidden Layers jeweils 16 Neuronen.',
     q10_check,
     'Erstelle eine Instanz der Klasse SimpleMlp mit den passenden Größen (siehe auch q8 und q9).',
-    'q10_model = SimpleMlp(240, 240, 16, 16, 15)'
+    'q10_model = SimpleMlp(224, 224, 16, 16, 15)'
 )
 
 def q11_check(learn):
@@ -206,5 +206,5 @@ q11 = HintSolution(
     'Trainiere das Modell jetzt für eine Epoche mit der initiale Lernrate 0.01',
     q11_check,
     'Nutze die Methode `fit_one_cycle` und trainiere wirklich nur für eine Epoche.',
-    'q11_learn = Learner(\n    dls,\n    model=SimpleMlp(240, 240, 16, 16, 15),\n    loss_func=nn.CrossEntropyLoss(),\n    metrics=accuracy\n)\nq11_learn.fit_one_cycle(1, 0.01)'
+    'q11_learn = Learner(\n    dls,\n    model=SimpleMlp(224, 224, 16, 16, 15),\n    loss_func=nn.CrossEntropyLoss(),\n    metrics=accuracy\n)\nq11_learn.fit_one_cycle(1, 0.01)'
 )
