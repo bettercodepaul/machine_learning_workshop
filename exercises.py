@@ -191,7 +191,7 @@ def q10_check(model):
     assert model.output_size == 15
 
 q10 = HintSolution(
-    'Erstelle ein Modell mit den richtigen Dimensionen für die WhichCar-Bilder. Nutze für die Hidden Layers jeweils 16 Neuronen.',
+    'Erstelle ein SimpleMlp mit den richtigen Dimensionen für die WhichCar-Bilder. Nutze für die Hidden Layers jeweils 16 Neuronen.',
     q10_check,
     'Erstelle eine Instanz der Klasse SimpleMlp mit den passenden Größen (siehe auch q8 und q9).',
     'q10_model = SimpleMlp(224, 224, 16, 16, 15)'
