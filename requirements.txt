@@ -1,7 +1,7 @@
 # this should be matched with Google Colab defaults
-polars==0.20.2
-plotly==5.15.0
-scikit-learn==1.2.2
-pandas==1.5.3
-pyarrow==10.0.1
-nbformat==5.9.2
+polars==1.14.0
+plotly==5.24.1
+scikit-learn==1.6.1
+pandas==2.2.2
+pyarrow==18.1.0
+nbformat==5.10.4

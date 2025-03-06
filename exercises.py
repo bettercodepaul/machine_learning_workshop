@@ -7,7 +7,7 @@ def assert_approx(actual, expected, tol=0.001):
     assert abs(actual - expected) < abs(tol*expected)
 
 def train_fit_predict_score(model, df):
-    X = df.drop(columns=["Preis", "Nachbarschaft"])
+    X = df.drop(["Preis", "Nachbarschaft"], strict=False)
     y = df.get_column("Preis")
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
     model.fit(X_train, y_train)
@@ -116,7 +116,7 @@ q3 = HintSolution(
     'Erstelle ein Modell, das den Verkaufspreis besser vorhersagt, in dem du mehr Features als nur "Nachbarschaft" weglässt.',
     q3_check,
     'Prüfe die Features "Zimmer" und "Verkaufsjahr" genauer.',
-    'X = df.drop(columns=["Preis", "Nachbarschaft", "Zimmer", "Verkaufsjahr"])\ny = df.get_column("Preis")\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\ny_pred = model.predict(X_test)\nmetrics.r2_score(y_test, y_pred)'
+    'X = df.drop(["Preis", "Nachbarschaft", "Zimmer", "Verkaufsjahr"])\ny = df.get_column("Preis")\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)\nmodel = LinearRegression()\nmodel.fit(X_train, y_train)\ny_pred = model.predict(X_test)\nmetrics.r2_score(y_test, y_pred)'
 )
 
 def q4_check(df, r2_before, r2_after):
@@ -151,7 +151,7 @@ q6 = HintSolution(
     'Probiere die unterschiedlichen Encodings mit dem Random Forest und dem linearen Modell aus.',
     q6_check,
     'Für Integer Encoding und Dummy Encoding kannst Du direkt die Methode train_fit_predict_score benutzen.\nFür Target Encoding musst du das Target Encoding an X_train und X_test joinen, das ursprüngliche Feature Nachbarschaft dann entfernen und Training und Vorhersage selber implementieren.',
-    'from sklearn.ensemble import RandomForestRegressor\nfor model in [LinearRegression(), RandomForestRegressor()]:\n    model_name = type(model).__name__\n    _, r2_int = train_fit_predict_score(model, df_int_encoding)\n    _, r2_dummy = train_fit_predict_score(model, df_dummy_encoding)\n    X_train_target_encoded = X_train.join(target_encoding, on="Nachbarschaft").drop(columns="Nachbarschaft")\n    model.fit(X_train_target_encoded, y_train)\n    y_pred = model.predict(X_test.join(target_encoding, on="Nachbarschaft").drop(columns="Nachbarschaft"))\n    r2_target = metrics.r2_score(y_test, y_pred)\n    print(f"{model_name} mit Integer Encoding: {r2_int:.3f}")\n    print(f"{model_name} mit Dummy Encoding: {r2_dummy:.3f}")\n    print(f"{model_name} mit Target Encoding: {r2_target:.3f}")\nq6_best_encoding_linear_regression = "Dummy Encoding"\nq6_best_encoding_random_forest = "Target Encoding"'
+    'from sklearn.ensemble import RandomForestRegressor\nfor model in [LinearRegression(), RandomForestRegressor()]:\n    model_name = type(model).__name__\n    _, r2_int = train_fit_predict_score(model, df_int_encoding)\n    _, r2_dummy = train_fit_predict_score(model, df_dummy_encoding)\n    X_train_target_encoded = X_train.join(target_encoding, on="Nachbarschaft").drop("Nachbarschaft")\n    model.fit(X_train_target_encoded, y_train)\n    y_pred = model.predict(X_test.join(target_encoding, on="Nachbarschaft").drop("Nachbarschaft"))\n    r2_target = metrics.r2_score(y_test, y_pred)\n    print(f"{model_name} mit Integer Encoding: {r2_int:.3f}")\n    print(f"{model_name} mit Dummy Encoding: {r2_dummy:.3f}")\n    print(f"{model_name} mit Target Encoding: {r2_target:.3f}")\nq6_best_encoding_linear_regression = "Dummy Encoding"\nq6_best_encoding_random_forest = "Target Encoding"'
 )
 
 def q7_check(problem):
